@@ -8,9 +8,16 @@ const HomeScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Text>Open up App.js to start working on your app!</Text>
-      <Button title='Go to detail' onPress={() => navigation.navigate('Detail', { userId: 2 })} />
+      <Button
+        title='Go to detail'
+        onPress={() => navigation.navigate('Detail', { data: 'Hello World', userId: 2 })}
+      />
     </View>
   );
+};
+
+HomeScreen.navigationOptions = {
+  title: 'Home',
 };
 
 const DetailScreen = ({ navigation }) => {
@@ -21,8 +28,23 @@ const DetailScreen = ({ navigation }) => {
       <Text>Detail Screen</Text>
       <Text>{data}</Text>
       <Button title='Go home' onPress={() => navigation.goBack()} />
+      <Button
+        title='Load data'
+        onPress={() =>
+          navigation.setParams({
+            userId: 10,
+          })
+        }
+      />
     </View>
   );
+};
+
+DetailScreen.navigationOptions = ({ navigation }) => {
+  const userId = navigation.getParam('userId');
+  return {
+    title: `User ID ${userId} - Detail`,
+  };
 };
 
 const AppNavigator = createStackNavigator(
