@@ -48,15 +48,9 @@ const DetailScreen = ({ navigation }) => {
   );
 };
 
-DetailScreen.navigationOptions = ({ navigation, navigationOptions }) => {
-  const userId = navigation.getParam('userId');
-  const bgColor = navigationOptions.headerStyle.backgroundColor;
-
+DetailScreen.navigationOptions = ({ navigation }) => {
   return {
     title: `Loading...`,
-    headerStyle: {
-      backgroundColor: bgColor,
-    },
     headerRight: () => <Button title='+ 1' onPress={navigation.getParam('increment')} />,
   };
 };
@@ -72,18 +66,18 @@ const AppNavigator = createBottomTabNavigator(
   },
   {
     initialRouteName: 'Home',
-    defaultNavigationOptions: {
-      headerStyle: {
-        backgroundColor: '#fec',
+    defaultNavigationOptions: ({ navigation }) => ({
+      tabBarOptions: {
+        activeTintColor: navigation.state.routeName === 'Home' ? '#e91e63' : 'orange',
+        inactiveTintColor: '#000',
+        labelStyle: {
+          fontSize: 16,
+        },
+        style: {
+          backgroundColor: '#fec',
+        },
       },
-      headerTintColor: '#555',
-      headerTitleStyle: {
-        fontWeight: 'bold',
-      },
-      headerRightContainerStyle: {
-        padding: 20,
-      },
-    },
+    }),
   },
 );
 
