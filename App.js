@@ -43,14 +43,7 @@ const DetailScreen = ({ navigation }) => {
       <Text>Detail Screen</Text>
       <Text>{count}</Text>
       <Button title='Go home' onPress={() => navigation.goBack()} />
-      <Button
-        title='Load data'
-        onPress={() =>
-          navigation.setParams({
-            userId: 10,
-          })
-        }
-      />
+      <Button title='Load data' onPress={() => navigation.navigate('MyModal')} />
     </View>
   );
 };
@@ -94,7 +87,24 @@ const AppNavigator = createStackNavigator(
   },
 );
 
-const AppContainer = createAppContainer(AppNavigator);
+const RootStack = createStackNavigator(
+  {
+    Main: AppNavigator,
+    MyModal: {
+      screen: () => (
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+          <Text>My Modal Screen</Text>
+        </View>
+      ),
+    },
+  },
+  {
+    mode: 'modal',
+    headerMode: 'none',
+  },
+);
+
+const AppContainer = createAppContainer(RootStack);
 
 const App = () => {
   return <AppContainer />;
