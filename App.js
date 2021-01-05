@@ -4,6 +4,10 @@ import { StyleSheet, Text, View, Button } from 'react-native';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
+const Logo = () => {
+  return <Text>Custom Header</Text>;
+};
+
 const HomeScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
@@ -17,7 +21,10 @@ const HomeScreen = ({ navigation }) => {
 };
 
 HomeScreen.navigationOptions = {
-  title: 'Home',
+  title: <Logo />,
+  headerStyle: {
+    backgroundColor: '#f00',
+  },
 };
 
 const DetailScreen = ({ navigation }) => {
@@ -40,10 +47,15 @@ const DetailScreen = ({ navigation }) => {
   );
 };
 
-DetailScreen.navigationOptions = ({ navigation }) => {
+DetailScreen.navigationOptions = ({ navigation, navigationOptions }) => {
   const userId = navigation.getParam('userId');
+  const bgColor = navigationOptions.headerStyle.backgroundColor;
+
   return {
-    title: `User ID ${userId} - Detail`,
+    title: `${userId} - Detail`,
+    headerStyle: {
+      backgroundColor: bgColor,
+    },
   };
 };
 
@@ -58,6 +70,15 @@ const AppNavigator = createStackNavigator(
   },
   {
     initialRouteName: 'Home',
+    defaultNavigationOptions: {
+      headerStyle: {
+        backgroundColor: '#fec',
+      },
+      headerTintColor: '#555',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
+    },
   },
 );
 
