@@ -1,8 +1,8 @@
-import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
+import { createBottomTabNavigator } from 'react-navigation-tabs';
 
 const Logo = () => {
   return <Text>Custom Header</Text>;
@@ -53,7 +53,7 @@ DetailScreen.navigationOptions = ({ navigation, navigationOptions }) => {
   const bgColor = navigationOptions.headerStyle.backgroundColor;
 
   return {
-    title: `${userId} - Detail`,
+    title: `Loading...`,
     headerStyle: {
       backgroundColor: bgColor,
     },
@@ -61,7 +61,7 @@ DetailScreen.navigationOptions = ({ navigation, navigationOptions }) => {
   };
 };
 
-const AppNavigator = createStackNavigator(
+const AppNavigator = createBottomTabNavigator(
   {
     Home: {
       screen: HomeScreen,
