@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
@@ -29,11 +29,19 @@ HomeScreen.navigationOptions = {
 
 const DetailScreen = ({ navigation }) => {
   const data = navigation.getParam('data', 'default value');
+  const [count, setCount] = useState(0);
+  const increment = () => {
+    setCount((prev) => prev + 1);
+  };
+
+  useEffect(() => {
+    navigation.setParams({ increment });
+  }, []);
 
   return (
     <View style={styles.container}>
       <Text>Detail Screen</Text>
-      <Text>{data}</Text>
+      <Text>{count}</Text>
       <Button title='Go home' onPress={() => navigation.goBack()} />
       <Button
         title='Load data'
@@ -56,6 +64,7 @@ DetailScreen.navigationOptions = ({ navigation, navigationOptions }) => {
     headerStyle: {
       backgroundColor: bgColor,
     },
+    headerRight: () => <Button title='+ 1' onPress={navigation.getParam('increment')} />,
   };
 };
 
@@ -77,6 +86,9 @@ const AppNavigator = createStackNavigator(
       headerTintColor: '#555',
       headerTitleStyle: {
         fontWeight: 'bold',
+      },
+      headerRightContainerStyle: {
+        padding: 20,
       },
     },
   },
